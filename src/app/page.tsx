@@ -1,10 +1,49 @@
 "use client";
-import { useAccount, useDisconnect } from "wagmi";
+import { useAccount, useDisconnect, useReadContract, useWriteContract } from "wagmi";
+import { Button, Input, Card } from "antd";
+import { addressSm, ABISm } from "./constantes/sm";
+import { useState } from "react";
+import { writeContract } from "viem/actions";
 
 export default function Home() {
+	const [amount, setAmount] = useState(0);
 	const { address } = useAccount();
+	const { data: hash, isPending, error, writeContract } = useWriteContract();
+	const [balance, setBalance] = useState(0);
+
+	const { data, refetch } = useReadContract({
+		address: addressSm,
+		abi: ABISm,
+		functionName: "rece",
+		args: [],
+	});
+
+	const sendMoney = async () => {
+		writeContract(
+			{
+				address: addressSm,
+				abi: ABISm,
+				functionName: "paye",
+				value: BigInt(amount),
+				account: address,
+			}
+		)
+	};
+
+	const checkBalance = () => {
+		refetch();
+		setBalance(Number(data));
+	}
 	return (
 		<>
+			<div className="flex flex-col w-1/2">
+				<Input type="number" onChange={(e) => setAmount(Number(e.target.value))}></Input>
+				<Button onClick={sendMoney}>Send Money</Button>
+				<Button onClick={checkBalance}>Check balance</Button>
+				<Card>
+					<p>Balance: {balance}</p>
+				</Card>
+			</div>
 		</>
 	);
 }
