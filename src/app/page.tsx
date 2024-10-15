@@ -8,7 +8,7 @@ import { writeContract } from "viem/actions";
 export default function Home() {
 	const [amount, setAmount] = useState(0);
 	const { address } = useAccount();
-	const { data: hash, isPending, error, writeContract } = useWriteContract();
+	const { data: hash, status, error,isPending , writeContract } = useWriteContract();
 	const [balance, setBalance] = useState(0);
 
 	const { data, refetch } = useReadContract({
@@ -31,6 +31,8 @@ export default function Home() {
 		console.log("ampoount", amount);
 	};
 
+
+
 	const checkBalance = () => {
 		refetch();
 		setBalance(Number(data));
@@ -39,8 +41,9 @@ export default function Home() {
 		<>
 			{address && <div className="flex justify-end flex-col w-1/2">
 				<Input type="number" onChange={(e) => setAmount(Number(e.target.value))}></Input>
-				<Button onClick={sendMoney}>Send Money</Button>
+				<Button loading={status === "pending"} onClick={sendMoney}>Send Money</Button>
 				<Button onClick={checkBalance}>Check balance</Button>
+				<div className={isPending? "w-10 h-10 bg-purple-800":"w-10 h-10 bg-blue-600"}></div>
 				<Card>
 					<p>Balance: {balance}</p>
 				</Card>
