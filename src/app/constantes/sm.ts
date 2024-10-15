@@ -1,14 +1,15 @@
-export const addressSm = "0x5fbdb2315678afecb367f032d93f642f64180aa3"
+export const addressSm = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
 export const ABISm = [
 	{
 		"inputs": [],
-		"name": "paye",
-		"outputs": [],
 		"stateMutability": "payable",
-		"type": "function"
+		"type": "function",
+		"name": "paye"
 	},
 	{
 		"inputs": [],
+		"stateMutability": "view",
+		"type": "function",
 		"name": "rece",
 		"outputs": [
 			{
@@ -16,8 +17,6 @@ export const ABISm = [
 				"name": "",
 				"type": "uint256"
 			}
-		],
-		"stateMutability": "view",
-		"type": "function"
+		]
 	}
 ]

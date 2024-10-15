@@ -28,6 +28,7 @@ export default function Home() {
 				account: address,
 			}
 		)
+		console.log("ampoount", amount);
 	};
 
 	const checkBalance = () => {
@@ -36,14 +37,14 @@ export default function Home() {
 	}
 	return (
 		<>
-			<div className="flex flex-col w-1/2">
+			{address && <div className="flex justify-end flex-col w-1/2">
 				<Input type="number" onChange={(e) => setAmount(Number(e.target.value))}></Input>
 				<Button onClick={sendMoney}>Send Money</Button>
 				<Button onClick={checkBalance}>Check balance</Button>
 				<Card>
 					<p>Balance: {balance}</p>
 				</Card>
-			</div>
+			</div>}
 		</>
 	);
 }
