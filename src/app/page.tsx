@@ -14,7 +14,7 @@ export default function Home() {
 	const { data, refetch } = useReadContract({
 		address: addressSm,
 		abi: ABISm,
-		functionName: "rece",
+		functionName: "getBalance",
 		args: [],
 	});
 
@@ -23,7 +23,7 @@ export default function Home() {
 			{
 				address: addressSm,
 				abi: ABISm,
-				functionName: "paye",
+				functionName: "send",
 				value: BigInt(amount),
 				account: address,
 			}
